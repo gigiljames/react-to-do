@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import collection from "./Collection";
 import TaskList from "./TaskList";
 import Task from "./Task";
+import { ToastContainer, toast } from "react-toastify";
 
 function Input(props) {
   const [newList, setNewList] = useState(false);
@@ -20,12 +21,50 @@ function Input(props) {
     let title = document.querySelector(
       ".main-input-container .task-title"
     ).value;
+    if (!title) {
+      toast.error("Title is required.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        // transition: Bounce,
+      });
+      return;
+    }
     let inputs = document.querySelectorAll(".task-input-container .task-input");
     let taskList = new TaskList(title);
     for (let i = 0; i < inputs.length; i++) {
       if (inputs[i].value) {
         let tempTask = new Task(inputs[i].value);
-        taskList.addTask(tempTask);
+        let noDuplicate = taskList.addTask(tempTask);
+        if (!noDuplicate) {
+          toast.warn("Duplicate tasks detected!!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            // transition: Bounce,
+          });
+          toast.success("Duplicate tasks removed.", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            // transition: Bounce,
+          });
+        }
       }
     }
     if (taskList.taskList.length > 0) {
@@ -68,6 +107,19 @@ function Input(props) {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        // transition={Bounce}
+      />
       {!newList ? (
         <div className="main-input-container">
           <input

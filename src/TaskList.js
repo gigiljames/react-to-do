@@ -11,11 +11,12 @@ class TaskList {
   addTask(task) {
     let temp = this.taskList;
     for (let i = 0; i < temp.length; i++) {
-      if (temp[i].task === task.task) {
-        return;
+      if (temp[i].task.toLowerCase() === task.task.toLowerCase()) {
+        return false;
       }
     }
     this.taskList.push(task);
+    return true;
   }
 
   toggleComplete(id) {
@@ -29,7 +30,7 @@ class TaskList {
 
   removeTask(taskId) {
     this.taskList = this.taskList.filter((task) => task.id !== taskId);
-    if (this.taskList.length === 0 && this.title === "") {
+    if (this.taskList.length === 0) {
       collection.removeTaskList(this.id);
     }
   }
