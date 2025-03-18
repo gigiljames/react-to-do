@@ -9,7 +9,7 @@ function ToDoList() {
       <h1 style={{ textAlign: "center" }}>To-Do List</h1>
       <div className="main-content">
         <Input setRenderTrigger={setRenderTrigger} />
-        <Display />
+        <Display setRenderTrigger={setRenderTrigger} />
       </div>
     </>
   );

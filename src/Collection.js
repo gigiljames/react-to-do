@@ -15,6 +15,7 @@ class Collection {
   }
 
   removeTaskList(listId) {
+    console.log(listId + "ibade ethiiii");
     this.taskList = this.taskList.filter((list) => list.id !== listId);
   }
 

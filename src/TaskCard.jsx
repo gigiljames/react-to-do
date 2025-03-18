@@ -12,7 +12,7 @@ function TaskCard(props) {
     let listId = taskCard.dataset?.id;
     let taskId = task.dataset?.id;
     collection.removeTask(listId, taskId);
-    setRenderTrigger((prev) => prev + 1);
+    props.setRenderTrigger((prev) => prev + 1);
   }
 
   function handleStatusToggle(e) {

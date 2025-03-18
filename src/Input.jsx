@@ -23,10 +23,14 @@ function Input(props) {
     let inputs = document.querySelectorAll(".task-input-container .task-input");
     let taskList = new TaskList(title);
     for (let i = 0; i < inputs.length; i++) {
-      let tempTask = new Task(inputs[i].value);
-      taskList.addTask(tempTask);
+      if (inputs[i].value) {
+        let tempTask = new Task(inputs[i].value);
+        taskList.addTask(tempTask);
+      }
     }
-    collection.addTaskList(taskList);
+    if (taskList.taskList.length > 0) {
+      collection.addTaskList(taskList);
+    }
     handleClose();
     props.setRenderTrigger((prev) => prev + 1);
   }
